@@ -1,8 +1,21 @@
 import React, { FC, useEffect, useState } from 'react';
-import * as Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
+import styled from 'styled-components';
 import { DataProps } from './types';
-import { EC, WC } from './fragment';
+import {
+  EC,
+  WC,
+  CO2,
+  HD,
+  RHAIR,
+  TAIR,
+  ENSCR,
+  BLACKSCR,
+  PIPRGROW,
+  PIPELOW,
+  IGLOB,
+  RADSUM,
+  TOUT,
+} from './fragment';
 
 const Charts: FC = () => {
   const [all, setAll] = useState<[]>([]);
@@ -25,210 +38,143 @@ const Charts: FC = () => {
   const [Tout, setTout] = useState<number[]>([]);
 
   useEffect(() => {
-    fetch('/data/temp.json')
+    fetch('/data/data.json')
       .then((res) => res.json())
-      .then((res) => setAll(res.dataset));
+      .then((res) => {
+        setAll(res.dataset);
+      });
   }, []);
 
-  useEffect(() => {
-    all &&
-      all.map(
-        (el: DataProps) => (
-          time.push(el.time),
-          EC_slab1.push(el.EC_slab1),
-          EC_slab2.push(el.EC_slab2),
-          EC_drain_PC.push(el.EC_drain_PC),
-          WC_slab1.push(el.WC_slab1),
-          WC_slab2.push(el.WC_slab2),
-          CO2air.push(el.CO2air),
-          HumDef.push(el.HumDef),
-          Rhair.push(el.Rhair),
-          Tair.push(el.Tair),
-          EnScr.push(el.EnScr),
-          BlackScr.push(el.BlackScr),
-          PipeGrow.push(el.PipeGrow),
-          PipeLow.push(el.PipeLow),
-          Iglob.push(el.Iglob),
-          RadSum.push(el.RadSum),
-          Tout.push(el.Tout),
-          setTime(time),
-          setEC_slab1(EC_slab1),
-          setEC_slab2(EC_slab2),
-          setEC_drain_PC(EC_drain_PC),
-          setWC_slab1(WC_slab1),
-          setWC_slab2(WC_slab2),
-          setCO2air(CO2air),
-          setHumDef(HumDef),
-          setRhair(Rhair),
-          setTair(Tair),
-          setEnScr(EnScr),
-          setBlackScr(BlackScr),
-          setPipeGrow(PipeGrow),
-          setPipeLow(PipeLow),
-          setPipeLow(PipeLow),
-          setIglob(Iglob),
-          setRadSum(RadSum),
-          setTout(Tout)
-        )
-      );
-  }, [
-    all,
-    time,
-    EC_slab1,
-    EC_slab2,
-    EC_drain_PC,
-    WC_slab1,
-    WC_slab2,
-    CO2air,
-    HumDef,
-    Rhair,
-    Tair,
-    EnScr,
-    BlackScr,
-    PipeGrow,
-    PipeLow,
-    Iglob,
-    RadSum,
-    Tout,
-  ]);
+  const savingData = () => {
+    const _time: string[] = [];
+    const _EC_slab1: number[] = [];
+    const _EC_slab2: number[] = [];
+    const _EC_drain_PC: number[] = [];
+    const _WC_slab1: number[] = [];
+    const _WC_slab2: number[] = [];
+    const _CO2air: number[] = [];
+    const _HumDef: number[] = [];
+    const _Rhair: number[] = [];
+    const _Tair: number[] = [];
+    const _EnScr: number[] = [];
+    const _BlackScr: number[] = [];
+    const _PipeGrow: number[] = [];
+    const _PipeLow: number[] = [];
+    const _Iglob: number[] = [];
+    const _RadSum: number[] = [];
+    const _Tout: number[] = [];
 
-  console.log(all);
-
-  const options: Highcharts.Options = {
-    title: {
-      text: '전체 데이터',
-    },
-    annotations: [
-      {
-        draggable: 'xy',
-      },
-    ],
-    chart: {
-      margin: [100, 50, 100, 50],
-      zoomType: 'y',
-      resetZoomButton: {
-        position: {
-          align: 'right',
-        },
-      },
-    },
-    xAxis: {
-      tickInterval: 288,
-      categories: time && time.map((day) => day.slice(0, 9)),
-    },
-    tooltip: {
-      valueDecimals: 1,
-    },
-    series: [
-      {
-        type: 'line',
-        name: 'CO2air',
-        data: CO2air && CO2air,
-      },
-      {
-        type: 'line',
-        name: 'HumDef',
-        data: HumDef && HumDef,
-      },
-      {
-        type: 'line',
-        name: 'Rhair',
-        data: Rhair && Rhair,
-      },
-      {
-        type: 'line',
-        name: 'Tair',
-        data: Tair && Tair,
-      },
-      {
-        type: 'line',
-        name: 'EnScr',
-        data: EnScr && EnScr,
-      },
-      {
-        type: 'line',
-        name: 'BlackScr',
-        data: BlackScr && BlackScr,
-      },
-      {
-        type: 'line',
-        name: 'PipeGrow',
-        data: PipeGrow && PipeGrow,
-      },
-      {
-        type: 'line',
-        name: 'PipeLow',
-        data: PipeLow && PipeLow,
-      },
-      {
-        type: 'line',
-        name: 'Iglob',
-        data: Iglob && Iglob,
-      },
-      {
-        type: 'line',
-        name: 'RadSum',
-        data: RadSum && RadSum,
-      },
-      {
-        type: 'line',
-        name: 'Tout',
-        data: Tout && Tout,
-      },
-    ],
-    plotOptions: {
-      series: {
-        marker: {
-          enabled: true,
-        },
-      },
-    },
-    responsive: {
-      rules: [
-        {
-          condition: {
-            maxWidth: 500,
-          },
-          chartOptions: {
-            // legend: {
-            //   layout: 'horizontal',
-            //   align: 'center',
-            //   verticalAlign: 'bottom',
-            // },
-            yAxis: {
-              labels: {
-                align: 'left',
-                x: 0,
-                y: -2,
-              },
-              title: {
-                text: '값',
-              },
-            },
-          },
-        },
-      ],
-    },
+    all.map(
+      (el: DataProps) => (
+        _time.push(el.time),
+        _time.push(el.time),
+        _EC_slab1.push(el.EC_slab1),
+        _EC_slab2.push(el.EC_slab2),
+        _EC_drain_PC.push(el.EC_drain_PC),
+        _WC_slab1.push(el.WC_slab1),
+        _WC_slab2.push(el.WC_slab2),
+        _CO2air.push(el.CO2air),
+        _HumDef.push(el.HumDef),
+        _Rhair.push(el.Rhair),
+        _Tair.push(el.Tair),
+        _EnScr.push(el.EnScr),
+        _BlackScr.push(el.BlackScr),
+        _PipeGrow.push(el.PipeGrow),
+        _PipeLow.push(el.PipeLow),
+        _Iglob.push(el.Iglob),
+        _RadSum.push(el.RadSum),
+        _Tout.push(el.Tout)
+      )
+    );
+    setTime(_time);
+    setEC_slab1(_EC_slab1);
+    setEC_slab2(_EC_slab2);
+    setEC_drain_PC(_EC_drain_PC);
+    setWC_slab1(_WC_slab1);
+    setWC_slab2(_WC_slab2);
+    setCO2air(_CO2air);
+    setHumDef(_HumDef);
+    setRhair(_Rhair);
+    setTair(_Tair);
+    setEnScr(_EnScr);
+    setBlackScr(_BlackScr);
+    setPipeGrow(_PipeGrow);
+    setPipeLow(_PipeLow);
+    setIglob(_Iglob);
+    setRadSum(_RadSum);
+    setTout(_Tout);
   };
+
+  useEffect(() => {
+    savingData();
+  }, [all]);
 
   return (
     <>
-      {/* <HighchartsReact highcharts={Highcharts} options={options} /> */}
-      <br />
-      {all && (
-        <>
-          <EC
-            // time={time}
-            EC_slab1={EC_slab1}
-            EC_slab2={EC_slab2}
-            EC_drain_PC={EC_drain_PC}
-          />
-          <br />
-          <WC WC_slab1={WC_slab1} WC_slab2={WC_slab2} />
-        </>
+      {time.length > 1 && (
+        <ChartsFlex>
+          <Margin>
+            <EC
+              time={time}
+              EC_slab1={EC_slab1}
+              EC_slab2={EC_slab2}
+              EC_drain_PC={EC_drain_PC}
+            />
+          </Margin>
+          <Margin>
+            <WC time={time} WC_slab1={WC_slab1} WC_slab2={WC_slab2} />
+          </Margin>
+          <Margin>
+            <CO2 time={time} CO2air={CO2air} />
+          </Margin>
+          <Margin>
+            <HD time={time} HumDef={HumDef} />
+          </Margin>
+          <Margin>
+            <RHAIR time={time} Rhair={Rhair} />
+          </Margin>
+          <Margin>
+            <TAIR time={time} Tair={Tair} />
+          </Margin>
+          <Margin>
+            <ENSCR time={time} EnScr={EnScr} />
+          </Margin>
+          <Margin>
+            <BLACKSCR time={time} BlackScr={BlackScr} />
+          </Margin>
+          <Margin>
+            <PIPRGROW time={time} PipeGrow={PipeGrow} />
+          </Margin>
+          <Margin>
+            <PIPELOW time={time} PipeLow={PipeLow} />
+          </Margin>
+          <Margin>
+            <IGLOB time={time} Iglob={Iglob} />
+          </Margin>
+          <Margin>
+            <RADSUM time={time} RadSum={RadSum} />
+          </Margin>
+          <Margin>
+            <TOUT time={time} Tout={Tout} />
+          </Margin>
+        </ChartsFlex>
       )}
     </>
   );
 };
+
+const ChartsFlex = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 90vw;
+
+  @media ${(props) => props.theme.tablet} {
+    justify-content: center;
+  }
+`;
+
+const Margin = styled.div`
+  margin: 2rem 2rem;
+`;
 
 export default Charts;

@@ -1,2 +1,13 @@
 export { default as EC } from './EC';
 export { default as WC } from './WC';
+export { default as CO2 } from './CO2';
+export { default as HD } from './HumDef';
+export { default as RHAIR } from './Rhair';
+export { default as TAIR } from './Tair';
+export { default as ENSCR } from './EnScr';
+export { default as BLACKSCR } from './BlackScr';
+export { default as PIPRGROW } from './PipeGrow';
+export { default as PIPELOW } from './PipeLow';
+export { default as IGLOB } from './Iglob';
+export { default as RADSUM } from './RadSum';
+export { default as TOUT } from './Tout';

@@ -15,7 +15,8 @@ const WC = ({ WC_slab1, WC_slab2 }: WCProps) => {
     ],
     chart: {
       margin: [100, 50, 100, 50],
-      zoomType: 'y',
+      height: '500px',
+      zoomType: 'xy',
       resetZoomButton: {
         position: {
           align: 'right',

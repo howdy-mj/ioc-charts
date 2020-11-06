@@ -1,12 +1,12 @@
 import React from 'react';
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { ECProps } from './dataTypes';
+import { ToutProps } from './dataTypes';
 
-const EC = ({ time, EC_slab1, EC_slab2, EC_drain_PC }: ECProps) => {
+const Tout = ({ time, Tout }: ToutProps) => {
   const options: Highcharts.Options = {
     title: {
-      text: 'EC 데이터',
+      text: 'Tout 데이터',
     },
     annotations: [
       {
@@ -16,7 +16,7 @@ const EC = ({ time, EC_slab1, EC_slab2, EC_drain_PC }: ECProps) => {
     chart: {
       margin: [100, 50, 100, 50],
       height: '500px',
-      zoomType: 'x',
+      zoomType: 'xy',
       resetZoomButton: {
         position: {
           align: 'right',
@@ -24,13 +24,8 @@ const EC = ({ time, EC_slab1, EC_slab2, EC_drain_PC }: ECProps) => {
       },
     },
     xAxis: {
-      tickInterval: 295,
+      tickInterval: 288,
       categories: time && time.map((day) => day.slice(0, 9)),
-    },
-    yAxis: {
-      title: {
-        text: null,
-      },
     },
     tooltip: {
       valueDecimals: 1,
@@ -39,18 +34,8 @@ const EC = ({ time, EC_slab1, EC_slab2, EC_drain_PC }: ECProps) => {
       {
         type: 'line',
         name: 'EC_slab1',
-        data: EC_slab1 && EC_slab1,
+        data: Tout && Tout,
         // gapSize: 12,
-      },
-      {
-        type: 'line',
-        name: 'EC_slab2',
-        data: EC_slab2 && EC_slab2,
-      },
-      {
-        type: 'line',
-        name: 'EC_drain_PC',
-        data: EC_drain_PC && EC_drain_PC,
       },
     ],
     plotOptions: {
@@ -60,15 +45,29 @@ const EC = ({ time, EC_slab1, EC_slab2, EC_drain_PC }: ECProps) => {
         },
       },
     },
-    rangeSelector: {
-      verticalAlign: 'top',
-      x: 0,
-      y: 0,
-      buttons: [
+    responsive: {
+      rules: [
         {
-          type: 'day',
-          count: 300,
-          text: '1d',
+          condition: {
+            maxWidth: 500,
+          },
+          chartOptions: {
+            // legend: {
+            //   layout: 'horizontal',
+            //   align: 'center',
+            //   verticalAlign: 'bottom',
+            // },
+            yAxis: {
+              labels: {
+                align: 'left',
+                x: 0,
+                y: -2,
+              },
+              title: {
+                text: '값',
+              },
+            },
+          },
         },
       ],
     },
@@ -76,4 +75,4 @@ const EC = ({ time, EC_slab1, EC_slab2, EC_drain_PC }: ECProps) => {
   return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
-export default EC;
+export default Tout;
