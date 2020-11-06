@@ -1,9 +1,7 @@
-https://api.highcharts.com/highcharts/
+### 2020.11.07
 
-https://github.com/highcharts/highcharts-react
+[highcharts api](https://api.highcharts.com/highcharts/)
 
-https://github.com/highcharts/highcharts/tree/master/ts
+[highcharts-react](https://github.com/highcharts/highcharts-react)
 
---
-
-https://jsfiddle.net/BlackLabel/57u8x9L0/
+[highcharts](https://github.com/highcharts/highcharts/tree/master/ts)
